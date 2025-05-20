@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Response
-from fastapi.responses import PlainTextResponse, HTMLResponse, JSONResponse
+from fastapi.responses import PlainTextResponse, HTMLResponse, FileResponse
  
 app = FastAPI()
  
@@ -24,3 +24,9 @@ def root_text():
 @app.get("/html", response_class = HTMLResponse)
 def root_html():
     return "<h2>Hello METANIT.COM</h2>"
+
+@app.get("/file")
+def root_file():
+    return FileResponse("public/index.html", 
+                        filename="mainpage.html", 
+                        media_type="application/octet-stream")
