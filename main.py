@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response, Path, Query
+from fastapi import FastAPI, Response, Path, Query, status
 from fastapi.responses import PlainTextResponse, HTMLResponse, FileResponse
  
 app = FastAPI()
@@ -51,3 +51,14 @@ def users(people: list[str]  = Query()):
 def users(name:str  = Path(min_length=3, max_length=20), 
             age: int = Query(ge=18, lt=111)):
     return {"name": name, "age": age}
+
+@app.get("/notfound", status_code=status.HTTP_404_NOT_FOUND)
+def notfound():
+    return  {"message": "Resource Not Found"}
+
+@app.get("/user1/{id}", status_code=200)
+def users(response: Response, id: int = Path()):
+    if id < 1:
+        response.status_code = 400
+        return {"message": "Incorrect Data"}
+    return  {"message": f"Id = {id}"}
