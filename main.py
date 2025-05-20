@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response, Path
+from fastapi import FastAPI, Response, Path, Query
 from fastapi.responses import PlainTextResponse, HTMLResponse, FileResponse
  
 app = FastAPI()
@@ -35,7 +35,19 @@ def root_file():
 def admin():
     return {"message": "Hello admin"}
  
+@app.get("/users")
+def get_model(name: str = "Undefined", age: int = 18):
+    return {"user_name": name, "user_age": age}
  
 @app.get("/users/{name}")
 def users(name:str  = Path(min_length=3, max_length=20)):
     return {"name": name}
+
+@app.get("/user")
+def users(people: list[str]  = Query()):
+    return {"people": people}
+
+@app.get("/user/{name}")
+def users(name:str  = Path(min_length=3, max_length=20), 
+            age: int = Query(ge=18, lt=111)):
+    return {"name": name, "age": age}
