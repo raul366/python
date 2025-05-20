@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response, Path
 from fastapi.responses import PlainTextResponse, HTMLResponse, FileResponse
  
 app = FastAPI()
@@ -30,3 +30,12 @@ def root_file():
     return FileResponse("public/index.html", 
                         filename="mainpage.html", 
                         media_type="application/octet-stream")
+
+@app.get("/users/admin")
+def admin():
+    return {"message": "Hello admin"}
+ 
+ 
+@app.get("/users/{name}")
+def users(name:str  = Path(min_length=3, max_length=20)):
+    return {"name": name}
