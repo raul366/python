@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Response, Path, Query, status
-from fastapi.responses import PlainTextResponse, HTMLResponse, FileResponse
+from fastapi.responses import PlainTextResponse, HTMLResponse, FileResponse, RedirectResponse, PlainTextResponse
  
 app = FastAPI()
  
@@ -62,3 +62,11 @@ def users(response: Response, id: int = Path()):
         response.status_code = 400
         return {"message": "Incorrect Data"}
     return  {"message": f"Id = {id}"}
+
+@app.get("/old")
+def old():
+    return RedirectResponse("/new", status_code=302)
+ 
+@app.get("/new")
+def new():
+    return PlainTextResponse("Новая страница")
