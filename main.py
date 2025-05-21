@@ -1,5 +1,5 @@
 import uuid
-from fastapi import FastAPI, Body, status
+from fastapi import FastAPI, Body, status, Response, Header
 from fastapi.responses import JSONResponse, FileResponse
  
 class Person:
@@ -19,6 +19,10 @@ def find_person(id):
    return None
  
 app = FastAPI()
+
+@app.get("/ainur")
+def root(secret_code: str | None = Header(default=None)):
+    return {"Secret-Code": secret_code}
  
 @app.get("/")
 async def main():
