@@ -1,12 +1,8 @@
 from fastapi import FastAPI, Response, Path, Query, status
 from fastapi.responses import PlainTextResponse, HTMLResponse, FileResponse, RedirectResponse, PlainTextResponse
- 
+from fastapi.staticfiles import StaticFiles
+
 app = FastAPI()
- 
-@app.get("/")
-def read_root():
-    html_content = "<h2>Hello METANIT.COM!</h2>"
-    return HTMLResponse(content=html_content)
 
 @app.get("/root")
 def root():
@@ -70,3 +66,5 @@ def old():
 @app.get("/new")
 def new():
     return PlainTextResponse("Новая страница")
+
+app.mount("/", StaticFiles(directory="public", html=True))
