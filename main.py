@@ -1,8 +1,12 @@
-from fastapi import FastAPI, Response, Path, Query, status
+from fastapi import FastAPI, Response, Path, Query, status, Body
 from fastapi.responses import PlainTextResponse, HTMLResponse, FileResponse, RedirectResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
+
+@app.get("/")
+def root():
+    return FileResponse("public/index.html")
 
 @app.get("/root")
 def root():
@@ -67,4 +71,11 @@ def old():
 def new():
     return PlainTextResponse("Новая страница")
 
-app.mount("/", StaticFiles(directory="public", html=True))
+app.mount("/static", StaticFiles(directory="public"))
+
+@app.post("/hello")
+#def hello(name = Body(embed=True)):
+def hello(data = Body()):
+    name = data["name"]
+    age = data["age"]
+    return {"message": f"{name}, ваш возраст - {age}"}
