@@ -1,6 +1,7 @@
 import uuid
-from fastapi import FastAPI, Body, status, Response, Header
+from fastapi import FastAPI, Body, status, Response, Header, Cookie
 from fastapi.responses import JSONResponse, FileResponse
+from datetime import datetime
  
 class Person:
     def __init__(self, name, age):
@@ -21,8 +22,11 @@ def find_person(id):
 app = FastAPI()
 
 @app.get("/ainur")
-def root(secret_code: str | None = Header(default=None)):
-    return {"Secret-Code": secret_code}
+def root(last_visit: str | None = Cookie(default=None)):
+    if last_visit == None:
+        return {"message": "Это ваш первый визит на сайт"}
+    else:
+        return  {"message": f"Ваш последний визит: {last_visit}"}
  
 @app.get("/")
 async def main():
