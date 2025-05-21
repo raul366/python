@@ -18,7 +18,7 @@
 <script>
     async function send(){
  
-        // получаем введеное в поле имя и возраст
+        // получаем введеные в поля имя и возраст
         const username = document.getElementById("username").value;
         const userage = document.getElementById("userage").value;
  
@@ -26,13 +26,14 @@
         const response = await fetch("/hello", {
                 method: "POST",
                 headers: { "Accept": "application/json", "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    name: username,
-                    age: userage
+                    body: JSON.stringify({ 
+                    name: "Tom",
+                    company: {name: "Google"}
                 })
             });
             if (response.ok) {
-                const data = await response.json();
+                const data = await response.json(); 
+                console.log(data);
                 document.getElementById("message").textContent = data.message;
             }
             else
