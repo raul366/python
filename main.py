@@ -22,7 +22,7 @@ app = FastAPI()
  
 @app.get("/")
 async def main():
-    return FileResponse("public/index.html")
+    return FileResponse("source/public/index.html")
  
 @app.get("/api/users")
 def get_people():
