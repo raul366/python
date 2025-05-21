@@ -1,15 +1,8 @@
-import uuid
 from fastapi import FastAPI, Body, status
 from fastapi.responses import JSONResponse, FileResponse
  
-class Person:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-        self.id = str(uuid.uuid4())
- 
 # условная база данных - набор объектов Person
-people = [Person("Tom", 38), Person("Bob", 42), Person("Sam", 28)]
+
  
 # для поиска пользователя в списке people
 def find_person(id):
