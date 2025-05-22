@@ -1,20 +1,20 @@
-from source.public import people
+from source.public.people import people
 from fastapi import Body, status
 from fastapi.responses import JSONResponse
 from source.scheme.handbooks import Person
 
-def find_person(id):
+async def find_person(id):
    for person in people: 
         if person.id == id:
            return person
    return None
 
-def get_people():
-    return people
+async def get_people():
+    return [person.dict() for person in people]
 
-def get_person(id):
+async def get_person(id):
     # получаем пользователя по id
-    person = find_person(id)
+    person = await find_person(id)
     print(person)
     # если не найден, отправляем статусный код и сообщение об ошибке
     if person==None:  
@@ -23,17 +23,17 @@ def get_person(id):
                 content={ "message": "Пользователь не найден" }
         )
     #если пользователь найден, отправляем его
-    return person
+    return person.dict()
 
-def create_person(data  = Body()):
+async def create_person(data  = Body()):
     person = Person(data["name"], data["age"])
     # добавляем объект в список people
     people.append(person)
-    return person
+    return person.dict()
 
-def edit_person(data  = Body()):
+async def edit_person(data  = Body()):
     # получаем пользователя по id
-    person = find_person(data["id"])
+    person = await find_person(data["id"])
     # если не найден, отправляем статусный код и сообщение об ошибке
     if person == None: 
         return JSONResponse(
@@ -43,11 +43,11 @@ def edit_person(data  = Body()):
     # если пользователь найден, изменяем его данные и отправляем обратно клиенту
     person.age = data["age"]
     person.name = data["name"]
-    return person
+    return person.dict()
 
-def delete_person(id):
+async def delete_person(id):
     # получаем пользователя по id
-    person = find_person(id)
+    person = await find_person(id)
   
     # если не найден, отправляем статусный код и сообщение об ошибке
     if person == None:
@@ -58,4 +58,4 @@ def delete_person(id):
   
     # если пользователь найден, удаляем его
     people.remove(person)
-    return person
+    return person.dict()

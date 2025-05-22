@@ -35,7 +35,7 @@ button{margin: 5px;}
     // Получение всех пользователей
         async function getUsers() {
             // отправляет запрос и получаем ответ
-            const response = await fetch("/api/users", {
+            const response = await fetch("/api/users/", {
                 method: "GET",
                 headers: { "Accept": "application/json" }
             });
@@ -69,7 +69,7 @@ button{margin: 5px;}
         // Добавление пользователя
         async function createUser(userName, userAge) {
   
-            const response = await fetch("api/users", {
+            const response = await fetch("api/users/", {
                 method: "POST",
                 headers: { "Accept": "application/json", "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -88,7 +88,7 @@ button{margin: 5px;}
         }
         // Изменение пользователя
         async function editUser(userId, userName, userAge) {
-            const response = await fetch("api/users", {
+            const response = await fetch("api/users/", {
                 method: "PUT",
                 headers: { "Accept": "application/json", "Content-Type": "application/json" },
                 body: JSON.stringify({

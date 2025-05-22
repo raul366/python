@@ -1,23 +1,24 @@
-from fastapi import Body
-from source import handbooks
-from main import app
+from fastapi import APIRouter, Body
+from source.core import handbooks
 
-@app.get("/api/users")
-def get_people():
-    return handbooks.get_people()
+router = APIRouter(prefix="/api/users", tags=["Users"])
 
-@app.get("/api/users/{id}")
-def get_person(id):
-    return handbooks.get_person(id)
+@router.get("/")
+async def get_people():
+    return await handbooks.get_people()
 
-@app.post("/api/users")
-def create_person(data  = Body()):
-    return handbooks.create_person(data  = Body())
+@router.get("/{id}")
+async def get_person(id):
+    return await handbooks.get_person(id)
 
-@app.put("/api/users")
-def edit_person(data  = Body()):
-    return handbooks.edit_person(data  = Body())
+@router.post("/")
+async def create_person(data = Body()):
+    return await handbooks.create_person(data)
 
-@app.delete("/api/users/{id}")
-def delete_person(id):
-    return handbooks.delete_person(id)
+@router.put("/")
+async def edit_person(data = Body()):
+    return await handbooks.edit_person(data)
+
+@router.delete("/{id}")
+async def delete_person(id):
+    return await handbooks.delete_person(id)
