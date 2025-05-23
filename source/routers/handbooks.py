@@ -8,7 +8,7 @@ async def get_people():
     return await handbooks.get_people()
 
 @router.get("/{id}")
-async def get_person(id):
+async def get_person(id: int):
     return await handbooks.get_person(id)
 
 @router.post("/")
@@ -20,5 +20,5 @@ async def edit_person(data = Body()):
     return await handbooks.edit_person(data)
 
 @router.delete("/{id}")
-async def delete_person(id):
+async def delete_person(id: int):
     return await handbooks.delete_person(id)
