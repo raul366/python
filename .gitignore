@@ -3,3 +3,4 @@ source/core/__pycache__/handbooks.cpython-313.pyc
 source/public/__pycache__/people.cpython-313.pyc
 source/routers/__pycache__/handbooks.cpython-313.pyc
 source/scheme/__pycache__/handbooks.cpython-313.pyc
+source/db/sql_app.db
