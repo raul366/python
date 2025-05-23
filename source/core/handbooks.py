@@ -3,7 +3,7 @@ from fastapi import Body, status
 from fastapi.responses import JSONResponse
 from source.scheme.handbooks import Person
 
-async def find_person(id: int):
+async def find_person(id: str):
    for person in people: 
         if person.id == id:
            return person
@@ -12,7 +12,7 @@ async def find_person(id: int):
 async def get_people():
     return [person.dict() for person in people]
 
-async def get_person(id: int):
+async def get_person(id: str):
     # получаем пользователя по id
     person = await find_person(id)
     print(person)
@@ -45,7 +45,7 @@ async def edit_person(data  = Body()):
     person.name = data["name"]
     return person.dict()
 
-async def delete_person(id: int):
+async def delete_person(id: str):
     # получаем пользователя по id
     person = await find_person(id)
   
