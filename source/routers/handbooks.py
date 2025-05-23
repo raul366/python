@@ -10,7 +10,7 @@ async def get_people(db: Session = Depends(handbooks.get_db)):
     return await handbooks.get_people(db)
 
 @router.get("/{id}")
-async def get_person(id, db: Session = Depends(handbooks.get_db)):
+async def get_person(id: int, db: Session = Depends(handbooks.get_db)):
     return await handbooks.get_person(id, db)
 
 @router.post("/")
@@ -22,5 +22,5 @@ async def edit_person(data = Body(), db: Session = Depends(handbooks.get_db)):
     return await handbooks.edit_person(data, db)
 
 @router.delete("/{id}")
-async def delete_person(id, db: Session = Depends(handbooks.get_db)):
+async def delete_person(id: int, db: Session = Depends(handbooks.get_db)):
     return await handbooks.delete_person(id, db)
